@@ -2,21 +2,45 @@ import psycopg2
 
 
 class Datebase:
-    def __init__(self, cursor, connect):
-        self.cursor = cursor
-        self.connect = connect
+    def __init__(self, name, host, user):
+        self.name = name
+        self.host = host
+        self.user = user
+        self.tables = []
+        self.quiet = False
 
-    def do(self, sql):
+    def __enter__(self):
+        self.connection = psycopg2.connect(
+            host=self.host, user=self.user, database=self.name)
+        self.cursor = self.connection.cursor()
+        print(self.name, "starts")
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.cursor.close()
+        self.connection.close()
+
+    def set_tables(self, tables):
+        self.tables.extend(tables)
+
+    def do(self, quiet=False):
+        self.quiet = quiet
+        for table in self.tables:
+            table.create()
+
+    def execute(self, sql):
         try:
-            print(sql)
+            if (not self.quiet):
+                print(sql)
             self.cursor.execute(sql)
-            self.connect.commit()
-            print("SUCCESS\n")
+            self.connection.commit()
+            if (not self.quiet):
+                print("SUCCESS\n")
         except (psycopg2.errors.DuplicateTable, psycopg2.errors.DuplicateColumn) as e:
-            self.connect.rollback()
+            self.connection.rollback()
             print("FAILED: ", e)
         except psycopg2.errors.InvalidTableDefinition as e:
-            self.connect.rollback()
+            self.connection.rollback()
             print("FAILED: ", e)
 
 
@@ -69,16 +93,16 @@ class Column:
 
 
 class Table:
-    def __init__(self, name, cursor, connection):
+    def __init__(self, name, datebase):
         self.name = name
-        self.datebase = Datebase(cursor, connection)
+        self.datebase = datebase
         self.columns = []
 
     def set_columns(self, columns):
         self.columns.extend(columns)
 
     def create(self):
-        self.datebase.do(f"CREATE TABLE {self.name}()")
+        self.datebase.execute(f"CREATE TABLE {self.name}()")
         self.add_columns()
 
     def add_columns(self):
@@ -86,4 +110,4 @@ class Table:
             c.add()
 
     def execute(self, sql):
-        self.datebase.do(sql)
+        self.datebase.execute(sql)

@@ -39,9 +39,17 @@ class Datebase:
         except (psycopg2.errors.DuplicateTable, psycopg2.errors.DuplicateColumn) as e:
             self.connection.rollback()
             print("FAILED: ", e)
+        except psycopg2.errors.UniqueViolation as e:
+            self.connection.rollback()
+            print("FAILED: ", e)
         except psycopg2.errors.InvalidTableDefinition as e:
             self.connection.rollback()
             print("FAILED: ", e)
+
+    def insert(self, table, data):
+        def l(x): return f"\'{x}\'"
+        self.execute(
+            f"INSERT INTO {table}({', '.join(data.keys())}) VALUES({', '.join(tuple(map(l, data.values())))})")
 
 
 class Column:

@@ -2,7 +2,7 @@ import re
 import json
 
 textfile_name = 'data/data_sample.txt'
-jsonfile_name = 'data/data.json'
+jsonfile_name = 'data/data_sample.json'
 
 # read from data.txt, and write to text
 with open(textfile_name, 'r') as f:
@@ -29,12 +29,24 @@ start_list = list(m_start.groups())
 finish_list = list(m_finish.groups())
 rest_list = list(m_rest.groups())
 
+date = '-'.join(date_list)
+start = ':'.join(start_list)
+finish = ':'.join(finish_list)
+rest = ':'.join(rest_list)
+
+
 # make dict
+d_dict = {'date': {'date': date, 'commute': comute_list[0] == '出社'}, 'time': {
+    'date': date, 'start': start, 'finish': finish, 'rest': rest}}
+
+"""
 d_dict = {'date': {'year': date_list[0], 'month': date_list[1], 'day': date_list[2]},
           'comute': comute_list[0] == '出社',
           'start': {'hour': start_list[0], 'minute': start_list[1]},
           'finish': {'hour': finish_list[0], 'minute': finish_list[1]},
           'rest': {'hour': rest_list[0], 'minute': rest_list[1]}}
+"""
+
 """		
 d_dict2 = {'date_year': date_list[0],'date_month': date_list[1], 'date_day': date_list[2],
 		'comute': comute_list[0]=='出社',

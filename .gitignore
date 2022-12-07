@@ -1,2 +1,5 @@
 config.py
 *.pyc
+data/*
+!data/data_sample.text
+!data/data_sample.json

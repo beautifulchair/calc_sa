@@ -2,7 +2,8 @@ import re
 import json
 
 textfile_name = 'data/data_sample.txt'
-jsonfile_name = 'data/data_sample.json'
+def jsonfile_name(x): return f'data/data_{x}.json'
+
 
 # read from data.txt, and write to text
 with open(textfile_name, 'r') as f:
@@ -56,5 +57,5 @@ d_dict2 = {'date_year': date_list[0],'date_month': date_list[1], 'date_day': dat
 """
 
 # convert dict to json
-with open(jsonfile_name, mode="w") as f:
+with open(jsonfile_name(date), mode="w") as f:
     json.dump(d_dict, f, indent=4)

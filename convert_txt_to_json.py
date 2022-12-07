@@ -5,11 +5,21 @@ textfile_name = 'data/data_sample.txt'
 def jsonfile_name(x): return f'data/data_{x}.json'
 
 
-# read from data.txt, and write to text
-with open(textfile_name, 'r') as f:
-    lines = f.readlines()
-text = "_".join(lines)
-text = text.replace('\n', '')
+lines = []
+while True:
+    try:
+        lines.append(input())
+    except EOFError:
+        break
+
+if (len(lines) == 0):
+    # read from data.txt, and write to text
+    with open(textfile_name, 'r') as f:
+        lines = f.readlines()
+    text = "_".join(lines)
+    text = text.replace('\n', '')
+else:
+    text = "_".join(lines)
 
 # find data from text
 p_date = re.compile(r'.*勤務日：([0-9]+)-([0-9]+)-([0-9]+).*')

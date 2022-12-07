@@ -40,10 +40,18 @@ start_list = list(m_start.groups())
 finish_list = list(m_finish.groups())
 rest_list = list(m_rest.groups())
 
-date = '-'.join(date_list)
-start = ':'.join(start_list)
-finish = ':'.join(finish_list)
-rest = ':'.join(rest_list)
+
+def l(lis):
+    # 2022-10-2 -> 2022-10-02
+    lis2 = list(map(int, lis))
+    lis2 = list(map(lambda x: f"{x:02}", lis2))
+    return lis2
+
+
+date = '-'.join(l(date_list))
+start = ':'.join(l(start_list))
+finish = ':'.join(l(finish_list))
+rest = ':'.join(l(rest_list))
 
 
 # make dict

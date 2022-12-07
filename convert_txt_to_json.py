@@ -1,7 +1,7 @@
 import re
 import json
 
-textfile_name = 'data/data_sample.txt'
+textfile_name = 'data_sample.txt'
 def jsonfile_name(x): return f'data/data_{x}.json'
 
 

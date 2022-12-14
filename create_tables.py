@@ -7,7 +7,7 @@ user = config.user
 default_transportion = config.default_transportion
 default_perhour = config.default_perhour
 
-with db.Datebase("db_sa", host, user) as db_sa:
+with db.Datebase(db_name, host, user) as db_sa:
     tb_date = db.Table("date", db_sa)
     date_id = db.Column("id", tb_date, "SERIAL")
     date_date = db.Column("date", tb_date, "DATE", is_pkey=True)

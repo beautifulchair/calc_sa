@@ -1,5 +1,5 @@
 import config
-import datebase as db
+import database as db
 
 db_name = config.db_name
 host = config.host

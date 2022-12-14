@@ -1,5 +1,5 @@
 import config
-import datebase as db
+import database as db
 import json
 import os
 

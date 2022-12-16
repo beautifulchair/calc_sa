@@ -42,7 +42,7 @@ with psycopg2.connect(host=config.host, user=config.user, database=config.db_nam
         # print_table(view_date)
 
         cursor.execute(f"""CREATE VIEW {view_result}
-                            AS SELECT {view_date}.date, {view_date}.transportion::int, {view_date}.perhour*{view_time}.time/60::float AS salary
+                            AS SELECT {view_date}.date, {view_time}.time/60::float, {view_date}.transportion::int,  {view_date}.perhour*{view_time}.time/60::float AS salary
                             FROM {view_date}
                             INNER JOIN {view_time}
                             ON {view_date}.date = {view_time}.date""")

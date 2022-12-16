@@ -90,8 +90,6 @@ class Column:
             f"ALTER TABLE {self.table.name} ALTER COLUMN {self.name} SET NOT NULL")
 
     def add_default(self):
-        if (self.data_type in ['TEXT', 'TIME', 'DATE', 'INTERVAL']):
-            self.default = f"\'{self.default}\'"
         self.table.execute(
             f"ALTER TABLE {self.table.name} ALTER COLUMN {self.name} SET DEFAULT {self.default}")
 

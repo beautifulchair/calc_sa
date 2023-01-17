@@ -6,3 +6,6 @@ db:
 
 calc:
 	python3 calc_sum_salary.py
+
+show:	
+	echo "table date" | psql db_sa

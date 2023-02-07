@@ -1,11 +1,11 @@
-import config
+import os
 import database as db
 
-db_name = config.db_name
-host = config.host
-user = config.user
-default_transportion = config.default_transportion
-default_perhour = config.default_perhour
+db_name = os.getenv("DB_NAME")
+host = os.getenv("DB_SA_HOST")
+user = os.getenv("DB_SA_USER")
+default_transportion = os.getenv("DEFAULT_TRANSPORTION")
+default_perhour = os.getenv("DEFAULT_PERHOUR")
 
 with db.Datebase(db_name, host, user) as db_sa:
     tb_date = db.Table("date", db_sa)

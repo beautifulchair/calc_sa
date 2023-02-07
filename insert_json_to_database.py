@@ -1,4 +1,3 @@
-import config
 import database as db
 import json
 import os
@@ -12,9 +11,9 @@ for file_name in files:
     with open(f"data/{file_name}", 'r') as f:
         data = json.load(f)
 
-    db_name = config.db_name
-    host = config.host
-    user = config.user
+    db_name = os.getenv("DB_NAME")
+    host = os.getenv("DB_SA_HOST")
+    user = os.getenv("DB_SA_USER")
 
     with db.Datebase(db_name, host, user) as db_sa:
         db_sa.insert("date", data["date"])

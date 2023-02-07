@@ -1,5 +1,5 @@
 import psycopg2
-import config
+import os
 
 
 year = int(input("year= "))
@@ -15,7 +15,7 @@ view_date = f"date_{year_month}"
 view_result = f"result_{year_month}"
 view_sum = f"sum_{year_month}"
 
-with psycopg2.connect(host=config.host, user=config.user, database=config.db_name) as conn:
+with psycopg2.connect(host=os.getenv('DB_SA_HOST'), user=os.getenv("DB_SA_USER"), database=os.getenv("DB_NAME")) as conn:
     with conn.cursor() as cursor:
         def print_table(table):
             cursor.execute(f"Select * From {table}")

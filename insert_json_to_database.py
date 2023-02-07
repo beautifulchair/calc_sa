@@ -1,6 +1,7 @@
 import database as db
 import json
 import os
+from dotenv import load_dotenv
 
 files = sorted(os.listdir("./data"))
 print("\n".join(files))
@@ -11,6 +12,7 @@ for file_name in files:
     with open(f"data/{file_name}", 'r') as f:
         data = json.load(f)
 
+    load_dotenv(override=True)
     db_name = os.getenv("DB_NAME")
     host = os.getenv("DB_SA_HOST")
     user = os.getenv("DB_SA_USER")

@@ -2,7 +2,7 @@ import os
 import database as db
 from dotenv import load_dotenv
 
-load_dotenv(override=True)
+load_dotenv(override=True, dotenv_path=".env.local")
 db_name = os.getenv("DB_NAME")
 host = os.getenv("DB_SA_HOST")
 user = os.getenv("DB_SA_USER")

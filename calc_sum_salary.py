@@ -1,7 +1,7 @@
 import psycopg2
 import os
 from dotenv import load_dotenv
-load_dotenv(override=True)
+load_dotenv(override=True, dotenv_path=".env.local")
 
 year = int(input("year= "))
 month = int(input("month= "))
